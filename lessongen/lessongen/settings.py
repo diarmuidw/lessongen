@@ -1,8 +1,13 @@
-import os
+import os, sys
 
+
+PROJECT_ROOT = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -98,6 +103,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
     "lessongen.context_processors.settings",
+    
 ]
 
 
@@ -137,6 +143,7 @@ INSTALLED_APPS = [
     "metron",
     
     # project
+    "lessongen.apps.generator",
 ]
 
 # A sample logging configuration. The only tangible logging

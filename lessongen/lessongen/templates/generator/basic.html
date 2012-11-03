@@ -1,0 +1,14 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Gen report" %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans "Gen Report?" %}</h1>
+    <form action="/gen/simple_math/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+ 	
+{% endblock %}

@@ -11,5 +11,7 @@ pinax-utils==1.0b1.dev3
 #from eldarion-gondor-project-django
 gondor==1.1.5
 gunicorn==0.15.0
-psycopg2==2.4.5
+#psycopg2==2.4.5
 dj-database-url==0.2.1
+#project specific
+reportlab
