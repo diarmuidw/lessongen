@@ -14,7 +14,7 @@ from django.contrib import messages
 
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
-
+from reportlab.lib.units import cm 
 
 
 #import pinax.apps.account
@@ -57,41 +57,43 @@ def gen_simple_math(request, template_name="generator/basic.html"):
         
             # Create the PDF object, using the response object as its "file."
             c = canvas.Canvas(response)
-                    
-            width, height = A4
-  
-         
-            rowinterval = 18
-            topmargin = 50
-            leftmargin = 55
-            colinterval = 50
-            numcols = 9
-            numrows = 13
-            
-            
-            gapbetweenrows = 60
-            gapbetweencols = 60
-  
-       
-            i = 0
-            j = 0
-            while i < numrows:
+            for num in ['i', 'ii', 'iii', 'iv', 'v']:
+                
+                
+                width, height = A4
+                c.drawString(width /2.0,1*cm, num)
+             
+                rowinterval = 18
+                topmargin = 50
+                leftmargin = 55
+                colinterval = 50
+                numcols = 9
+                numrows = 13
+                
+                
+                gapbetweenrows = 60
+                gapbetweencols = 60
+      
+           
+                i = 0
                 j = 0
-                while j < numcols:
-                    
-                    a = random.randrange(int(lowertop),int(uppertop))
-                    b = random.randrange(int(lowerbottom),int(upperbottom))
-                    c.drawString(leftmargin + gapbetweencols*j,height - topmargin - gapbetweenrows*i,"  % 3d" % (a))
-                    c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,"%s% 3d" % (operator,b))
-                    c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,'____')
-                    j = j + 1
-                i = i +1
-            
-
-            c.drawString(width /2.0, height - topmargin+20, "Hello, %s"%name)
-            
-            # Close the PDF object cleanly, and we're done.
-            c.showPage()
+                while i < numrows:
+                    j = 0
+                    while j < numcols:
+                        
+                        a = random.randrange(int(lowertop),int(uppertop))
+                        b = random.randrange(int(lowerbottom),int(upperbottom))
+                        c.drawString(leftmargin + gapbetweencols*j,height - topmargin - gapbetweenrows*i,"  % 3d" % (a))
+                        c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,"%s% 3d" % (operator,b))
+                        c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,'____')
+                        j = j + 1
+                    i = i +1
+                
+    
+                c.drawString(width /2.0 -75, height - topmargin+20, "Create for %s by 1000lessons.com"%name )
+                
+                # Close the PDF object cleanly, and we're done.
+                c.showPage()
             c.save()
             return response
     else:

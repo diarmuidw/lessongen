@@ -16,11 +16,11 @@ class SimpleMathForm(forms.Form):
        ("x", ("x")),
        ("/", ("/")),
    )
-    name = forms.CharField()
-    lowertop = forms.IntegerField()
-    uppertop = forms.IntegerField()
-    lowerbottom = forms.IntegerField()
-    upperbottom = forms.IntegerField()
+    name = forms.CharField(initial='My School', help_text="Your School's name")
+    lowertop = forms.IntegerField(initial = '10', help_text='the lower limit of the range of number for the top part of the sum')
+    uppertop = forms.IntegerField(initial = '20', help_text='the upper limit of the range of number for the top part of the sum ')
+    lowerbottom = forms.IntegerField(initial = '5', help_text='the lower limit of the range of number for the bottom part of the sum')
+    upperbottom = forms.IntegerField(initial= '10', help_text='the upper limit of the range of number for the top part of the sum')
     operator = forms.ChoiceField(choices=GENDER)
     
     send = forms.BooleanField(required=False)  
