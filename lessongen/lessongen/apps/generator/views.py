@@ -36,6 +36,18 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from django.http import HttpResponse
+
+def getanswer(a,b,operator):
+    if operator == '+':
+        return a+b
+    elif operator == '-':
+        return a-b
+    elif operator == 'x':
+        return a*b
+    else:
+        return a/b
+
+
 @login_required
 def gen_simple_math(request, template_name="generator/basic.html"):
     print 'gen_math'
@@ -57,12 +69,15 @@ def gen_simple_math(request, template_name="generator/basic.html"):
         
             # Create the PDF object, using the response object as its "file."
             c = canvas.Canvas(response)
-            for num in ['i', 'ii', 'iii', 'iv', 'v']:
-                
+            ca = canvas.Canvas(response)
+            #for num in ['i', 'ii', 'iii', 'iv', 'v']:
+            for num in ['i']:
+         
                 
                 width, height = A4
                 c.drawString(width /2.0,1*cm, num)
-             
+                ca.drawString(width /2.0,1*cm, num)
+                
                 rowinterval = 18
                 topmargin = 50
                 leftmargin = 55
@@ -77,23 +92,71 @@ def gen_simple_math(request, template_name="generator/basic.html"):
            
                 i = 0
                 j = 0
+                
+                
+                data =[]
+                irow=[]
+                while i < numrows:
+                    j = 0
+                    jrow= []
+                    while j < numcols:
+                        jrow.append([random.randrange(int(lowertop),int(uppertop)),random.randrange(int(lowerbottom),int(upperbottom))])
+                        j = j +1
+                    data.append(jrow)
+                    i = i +1  
+                    
+                
+                #print data   
+            
+                i = 0
+                j = 0
+                               
                 while i < numrows:
                     j = 0
                     while j < numcols:
                         
-                        a = random.randrange(int(lowertop),int(uppertop))
-                        b = random.randrange(int(lowerbottom),int(upperbottom))
+                        a = data[i][j][0]
+                        print a
+                        b = data[i][j][1]
+                        print b
                         c.drawString(leftmargin + gapbetweencols*j,height - topmargin - gapbetweenrows*i,"  % 3d" % (a))
                         c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,"%s% 3d" % (operator,b))
                         c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,'____')
                         j = j + 1
                     i = i +1
                 
-    
-                c.drawString(width /2.0 -75, height - topmargin+20, "Create for %s by 1000lessons.com"%name )
+
+                c.drawString(width /2.0 -75, height - topmargin+20, "Created for %s by 1000lessons.com"%name )
                 
                 # Close the PDF object cleanly, and we're done.
                 c.showPage()
+                
+                i = 0
+                j = 0
+                               
+                while i < numrows:
+                    j = 0
+                    while j < numcols:
+                        
+                        a = data[i][j][0]
+                        print a
+                        b = data[i][j][1]
+                        print b
+                        c.drawString(leftmargin + gapbetweencols*j,height - topmargin - gapbetweenrows*i,"  % 3d" % (a))
+                        c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,"%s% 3d" % (operator,b))
+                        c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,'____')
+                
+                        c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval*2 - gapbetweenrows*i ,"  % 3d" % (getanswer(a,b,operator)))
+                        j = j + 1
+                    i = i +1
+                
+
+                c.drawString(width /2.0 -75, height - topmargin+20, "Created for %s by 1000lessons.com"%name )
+                
+                # Close the PDF object cleanly, and we're done.
+                c.showPage()               
+                
+      
             c.save()
             return response
     else:
