@@ -241,6 +241,9 @@ def maze(request):
         size = int(size)
     except:
         pass
+    if size > 30:
+        size = 30
+        
     m = Maze(size, size)
     image = m.as_image()
     # ... create/load image here ...

@@ -186,7 +186,7 @@ class Maze:
   def as_image(self):
     """Return image"""
     INK = "red", "blue", "green", "yellow"
-    image = Image.new("RGB", (800, 600), 'white')
+    image = Image.new("RGB", (self.n_cols*25, self.n_rows*25), 'white')
     fill=128
     draw = ImageDraw.Draw(image)
 
@@ -234,7 +234,7 @@ class Maze:
           draw.text((10,10),'S', fill = fill)
         elif i==self.n_rows-1 and j==self.n_cols-1:
           #result += 'E' # end
-          draw.text((colwidth*i,rowheight*j),'E', fill = fill)
+          draw.text((colwidth*i +10,rowheight*j+5),'E', fill = fill)
 #        else:
 #          result += "&nbsp;"
 #        result += "</TD>\n"
