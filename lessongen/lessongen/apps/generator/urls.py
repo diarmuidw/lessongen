@@ -6,5 +6,7 @@ urlpatterns = patterns("",
                        url(r"^$",'generator.views.gen_simple_math', name='gen_simple_math_direct'),
     url(r'^simple_math/$', 'generator.views.gen_simple_math', name='gen_simple_math'),
     url(r'^simple_image/$', 'generator.views.gen_images', name='gen_simple_image'),
+    url(r'^image/$', 'generator.views.image', name='gen_image'),
+    url(r'^maze/$', 'generator.views.maze', name='gen_maze'),
 
 )

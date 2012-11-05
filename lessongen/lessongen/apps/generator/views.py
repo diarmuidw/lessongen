@@ -37,6 +37,9 @@ from django.http import HttpResponseRedirect
 
 from django.http import HttpResponse
 
+
+from PIL import Image, ImageDraw
+
 def getanswer(a,b,operator):
     if operator == '+':
         return a+b
@@ -207,20 +210,53 @@ def gen_images(request):
     c.save()
     return response
   
+INK = "red", "blue", "green", "yellow"
 
-def some_view(request):
-    # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(mimetype='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+def image(request):
 
-    # Create the PDF object, using the response object as its "file."
-    p = canvas.Canvas(response)
+    # ... create/load image here ...
+    image = Image.new("RGB", (800, 600), random.choice(INK))
+    draw = ImageDraw.Draw(image)
 
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    p.drawString(100, 100, "Hello world.")
+    # ... draw graphics here ...
+    for i in range(20):
+        x0 = random.randint(10, image.size[0])
+        y0 = random.randint(0, image.size[1])
+        x1 = random.randint(0, image.size[0])
+        y1 = random.randint(0, image.size[1])
+        draw.rectangle((x0, y0, x1, y1))
 
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
+    #draw.flush()
+    # serialize to HTTP response
+    response = HttpResponse(mimetype="image/png")
+    image.save(response, "PNG")
+    return response
+
+
+from maze import Maze
+def maze(request):
+    size = 20
+    try:
+        size =  request.GET['size']
+        size = int(size)
+    except:
+        pass
+    m = Maze(size, size)
+    image = m.as_image()
+    # ... create/load image here ...
+#    image = Image.new("RGB", (800, 600), random.choice(INK))
+#    draw = ImageDraw.Draw(image)
+#
+#    # ... draw graphics here ...
+#    for i in range(20):
+#        x0 = random.randint(10, image.size[0])
+#        y0 = random.randint(0, image.size[1])
+#        x1 = random.randint(0, image.size[0])
+#        y1 = random.randint(0, image.size[1])
+#        draw.rectangle((x0, y0, x1, y1))
+
+    #draw.flush()
+    # serialize to HTTP response
+    response = HttpResponse(mimetype="image/png")
+    image.save(response, "PNG")
     return response
