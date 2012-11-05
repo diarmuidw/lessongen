@@ -143,7 +143,7 @@ INSTALLED_APPS = [
     "metron",
     
     # project
-    "lessongen.apps.generator",
+    "generator",
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -189,3 +189,6 @@ ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+
+IMAGE_DIR = os.path.join(PACKAGE_ROOT, "images"),
+

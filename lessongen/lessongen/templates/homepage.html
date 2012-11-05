@@ -21,7 +21,9 @@
         <a href ="/gen">Simple Math Sheet</a>
         {% endblocktrans %}
     </p>
-    
+    <p>
+    <a href ="/gen/simple_image">Simple Image</a>
+    </p>
     {% if user.is_authenticated %}
         {% url what_next as what_next_url %}
         <p class="what_next">{% blocktrans %}Wondering <a href="{{ what_next_url }}" class="btn primary large">What Next</a>?{% endblocktrans %}</p>
