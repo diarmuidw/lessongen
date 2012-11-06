@@ -51,7 +51,7 @@ def getanswer(a,b,operator):
         return a/b
 
 
-
+@csrf_exempt
 def gen_simple_math(request, template_name="generator/basic.html"):
     
 
