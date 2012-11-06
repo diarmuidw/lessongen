@@ -104,6 +104,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "account.context_processors.account",
     "lessongen.context_processors.settings",
     'social_auth.context_processors.social_auth_by_type_backends',
+    'django_facebook.context_processors.facebook',
     
 ]
 
@@ -146,7 +147,8 @@ INSTALLED_APPS = [
     # project
     "generator",
     'social_auth',
-    'app'
+    'app',
+    'django_facebook',
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -199,6 +201,7 @@ IMAGE_DIR = os.path.join(PACKAGE_ROOT, "images"),
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'django_facebook.auth_backends.FacebookBackend',
 )
 
 
@@ -272,3 +275,8 @@ LOGIN_URL          = '/accounts/form/'
 LOGIN_REDIRECT_URL = '/accounts/done/'
 LOGIN_ERROR_URL    = '/login-error/'
 
+AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
+
+
+FACEBOOK_APP_ID                   = '145742942138990'
+FACEBOOK_APP_SECRET               = 'f29aa5f6dbf5f108d8a1e8d948fb2a44'
