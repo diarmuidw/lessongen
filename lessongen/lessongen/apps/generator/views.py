@@ -27,6 +27,7 @@ else:
 from django import forms
 from forms import SimpleMathForm
 
+from django.views.decorators.csrf import csrf_exempt
         
 import datetime
 import string
@@ -264,7 +265,7 @@ def maze(request):
     image.save(response, "PNG")
     return response
 
-from django.views.decorators.csrf import csrf_exempt
+
 @csrf_exempt
 def homepage(request):
     return render(request, 'homepage.html')
