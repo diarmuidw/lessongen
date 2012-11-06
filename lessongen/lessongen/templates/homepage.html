@@ -31,7 +31,22 @@
     <p>
     <a href ="/facebook/connect">Connect with Facebook </a>
     </p>
+    
     {% if user.is_authenticated %}
+        <div id="wall_post" style="margin: 60px 0px 20px 0px;">
+        <h2>Post to My Wall</h2>
+        <div>
+            <form action="{% url facebook_wall_post %}" method="get">
+                {% csrf_token %}
+                <input type="hidden" value="{{ request.path }}" name="next" />
+
+                <textarea name="message" rows="3" cols="35">Check out www.vid.ie, Maths stuff:)</textarea>
+                <br />
+                <input type="submit" value="Post to your wall" />
+            </form>
+        </div>
+    </div>
+    
         {% url what_next as what_next_url %}
         <p class="what_next">{% blocktrans %}Wondering <a href="{{ what_next_url }}" class="btn primary large">What Next</a>?{% endblocktrans %}</p>
     {% else %}
