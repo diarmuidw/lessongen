@@ -10,8 +10,10 @@ admin.autodiscover()
 
 
 urlpatterns = patterns("",
+    
+    #url(r"^$", direct_to_template, {"template": "homepage.html"}, name="home"),
+    url(r"^$",include("lessongen.apps.generator.urls")),
     (r'^facebook/', include('django_facebook.urls')),
-    url(r"^$", direct_to_template, {"template": "homepage.html"}, name="home"),
     url(r"^admin/", include(admin.site.urls)),
 
     url(r"^account/", include("account.urls")),
@@ -23,3 +25,16 @@ urlpatterns = patterns("",
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+'''
+Various FB auth mechanism were evaluated with django_facebook being a clear winner
+It allows relatively easy setup and allows posting to wall, etc
+Social_auth was used and worked but is just for authentication and while it allows 
+integration with twitter, etc FB integration will do for now.
+
+A CSRF error was happening on the facebook canvas page (as it should) because the
+template was being rendered directly. This home page 
+
+
+
+'''

@@ -263,3 +263,11 @@ def maze(request):
     response = HttpResponse(mimetype="image/png")
     image.save(response, "PNG")
     return response
+
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
+def homepage(request):
+    return render(request, 'homepage.html')
+    
+    
+    

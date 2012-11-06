@@ -7,7 +7,7 @@
 {% block body_class %}home{% endblock %}
 
 {% block banner %}
-    <h1>{% trans "Welcome to 1000Worksheets.com)" %}</h1>
+    <h1>{% trans "1000Worksheets.com" %}</h1>
     <p>
         {% blocktrans %}
         This is a site to allow you to generate math and logic worksheets for 
@@ -18,7 +18,7 @@
     <h2>Make some Worksheets</h2>
     <p>
         {% blocktrans %}
-        <a href ="/gen">Simple Math Sheet</a>
+        <a href ="/gen/simple_math">Simple Math Sheet</a>
         {% endblocktrans %}
     </p>
     <p>
@@ -26,6 +26,10 @@
     </p>
      <p>
     <a href ="/gen/maze?size=15">Simple Maze</a>
+    </p>
+    
+    <p>
+    <a href ="/facebook/connect">Connect with Facebook </a>
     </p>
     {% if user.is_authenticated %}
         {% url what_next as what_next_url %}
