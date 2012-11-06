@@ -8,13 +8,16 @@ from django.contrib import admin
 admin.autodiscover()
 
 
+
 urlpatterns = patterns("",
     url(r"^$", direct_to_template, {"template": "homepage.html"}, name="home"),
     url(r"^admin/", include(admin.site.urls)),
 
     url(r"^account/", include("account.urls")),
     url(r"^gen/", include("lessongen.apps.generator.urls")),
-
+    url(r"^accounts/", include("lessongen.apps.app.urls")),
+    url(r'', include('social_auth.urls')),
 )
+
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
