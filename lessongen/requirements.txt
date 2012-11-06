@@ -17,3 +17,4 @@ dj-database-url==0.2.1
 reportlab
 pil==1.1.7
 django-social-auth==0.7.8
+django-facebook
