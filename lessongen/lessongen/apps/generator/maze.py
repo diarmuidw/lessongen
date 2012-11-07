@@ -54,7 +54,7 @@ class Maze:
     Actually, all cells are connected.
     Can raise 'MemoryError: Stack overflow' for big arguments, e.g. 100,100
     """
-
+    print n_rows, n_cols
     self.n_rows = n_rows
     self.n_cols = n_cols
     self.maze = [None]*n_rows
@@ -186,7 +186,10 @@ class Maze:
   def as_image(self):
     """Return image"""
     INK = "red", "blue", "green", "yellow"
-    image = Image.new("RGB", (self.n_cols*25, self.n_rows*25), 'white')
+    w = self.n_cols*25+10
+    h = self.n_rows*25 +10
+
+    image = Image.new("RGB", (w,h), 'white')
     fill=128
     draw = ImageDraw.Draw(image)
 

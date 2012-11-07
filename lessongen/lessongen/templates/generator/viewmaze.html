@@ -1,0 +1,16 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Gen report" %}{% endblock %}
+
+{% block body %}
+<h3>Maze</h3>
+<a href={% url view_maze 15 %}>size 15 maze</a>
+<a href={% url view_maze 20 %}>size 20 maze</a>
+<a href={% url view_maze 25 %}>size 25 maze</a>
+<a href={% url view_maze 30 %}>size 30 maze</a>
+<p>
+<img src ='{% url gen_maze size %}'/>
+ 	
+{% endblock %}

@@ -178,7 +178,10 @@ def gen_simple_math(request, template_name="generator/basic.html"):
     
 
 def gen_images(request):
-
+    '''
+    Generates a pictorial addition math.pdf (add apples)
+    Just a test to show that the workflow is right
+    '''
 
     response = HttpResponse(mimetype='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="math.pdf"'
@@ -222,7 +225,11 @@ def gen_images(request):
 INK = "red", "blue", "green", "yellow"
 
 def image(request):
-
+    '''
+    Creates and image to see if this would work as an alternative to pdf
+    or as an intermediate step.Images can be displayed more easily in a webpage. 
+    Actually, a pdf could be used an the image of the page extracted"
+    '''
     # ... create/load image here ...
     image = Image.new("RGB", (800, 600), random.choice(INK))
     draw = ImageDraw.Draw(image)
@@ -243,36 +250,31 @@ def image(request):
 
 
 from maze import Maze
-def maze(request):
-    size = 20
+def maze(request, size):
+    '''
+    creates a maze. accepts a 'size' param on the querysting
+    Generates an image that is sent as the whole reponse
+    Should experiment with displaying a html page within which an image
+    is displayed, the source of which is this
+    '''
     try:
-        size =  request.GET['size']
+
         size = int(size)
+        if size > 30:
+            size = 30
+            
+            
+        m = Maze(size, size)
+        image = m.as_image()
+        response = HttpResponse(mimetype="image/png")
+        image.save(response, "PNG")
+        return response
     except:
         pass
-    if size > 30:
-        size = 30
-        
-    m = Maze(size, size)
-    image = m.as_image()
-    # ... create/load image here ...
-#    image = Image.new("RGB", (800, 600), random.choice(INK))
-#    draw = ImageDraw.Draw(image)
-#
-#    # ... draw graphics here ...
-#    for i in range(20):
-#        x0 = random.randint(10, image.size[0])
-#        y0 = random.randint(0, image.size[1])
-#        x1 = random.randint(0, image.size[0])
-#        y1 = random.randint(0, image.size[1])
-#        draw.rectangle((x0, y0, x1, y1))
 
-    #draw.flush()
-    # serialize to HTTP response
-    response = HttpResponse(mimetype="image/png")
-    image.save(response, "PNG")
-    return response
+def viewmaze(request, size=20):
 
+    return render(request, 'generator/viewmaze.html',{'size':size})
 
 @csrf_exempt
 def homepage(request):

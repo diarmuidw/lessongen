@@ -25,12 +25,12 @@
     <a href ="/gen/simple_image">Add Shapes </a>
     </p>
      <p>
-    <a href ="/gen/maze?size=15">Simple Maze</a>
+    <a href ="/gen/viewmaze/">Simple Maze</a>
     </p>
-    
-    <p>
-    <a href ="/facebook/connect">Connect with Facebook </a>
-    </p>
+     <p>
+	<a href ="/facebook/connect">Your Facebook Data </a>
+	</p> 
+
     
     {% if user.is_authenticated %}
         <div id="wall_post" style="margin: 60px 0px 20px 0px;">
@@ -50,6 +50,9 @@
         {% url what_next as what_next_url %}
         <p class="what_next">{% blocktrans %}Wondering <a href="{{ what_next_url }}" class="btn primary large">What Next</a>?{% endblocktrans %}</p>
     {% else %}
+        <p>
+    	<a href ="/facebook/connect">Connect with Facebook </a>
+    	</p>
         {% url account_login as login_url %}
         {% url account_signup as signup_url %}
         <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn">Log In</a> or <a href="{{ signup_url }}" class="btn primary">Sign Up</a> to try out the site.{% endblocktrans %}</p>
