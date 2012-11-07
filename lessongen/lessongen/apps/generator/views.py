@@ -51,14 +51,22 @@ def getanswer(a,b,operator):
     else:
         return a/b
 
-
+import hoover
+handler = hoover.LogglyHttpHandler(token='69ab41c1-b4b4-4d0f-9b45-8260f9adcf23')
+import logging
 @csrf_exempt
 def gen_simple_math(request, template_name="generator/basic.html"):
-    
+
+    log = logging.getLogger('generator')
+    log.addHandler(handler)
+    log.setLevel(logging.INFO)
+    log.info("gen_simple_math, Start" )
 
     if request.method == 'POST': # If the form has been submitted...
+        log.info("gen_simple_math, POST" )
         form = SimpleMathForm(request.POST) # A form bound to the POST data
         if form.is_valid():
+            log.info("gen_simple_math, Valid" )
 
             name = form.cleaned_data['name']
             lowertop = form.cleaned_data['lowertop']
@@ -118,9 +126,9 @@ def gen_simple_math(request, template_name="generator/basic.html"):
                     while j < numcols:
                         
                         a = data[i][j][0]
-                        print a
+                        #print a
                         b = data[i][j][1]
-                        print b
+                        #print b
                         c.drawString(leftmargin + gapbetweencols*j,height - topmargin - gapbetweenrows*i,"  % 3d" % (a))
                         c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,"%s% 3d" % (operator,b))
                         c.drawString(leftmargin + gapbetweencols*j,height - topmargin -rowinterval - gapbetweenrows*i,'____')
